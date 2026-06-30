@@ -1,0 +1,115 @@
+<style>
+  /* 🌿 깔끔한 베이지&올리브 카페 카드 */
+  .cafe-card {
+    background-color: #f7f5f0;
+    border: 1px solid #ebdccb;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 300px;
+    margin: 30px auto;
+    text-align: center;
+    font-family: sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  }
+  
+  .cafe-name {
+    color: #556b2f; /* 올리브 그린 */
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+
+  /* 🔗 인스타 팝업 열기 버튼 */
+  .insta-btn {
+    background-color: #8fa07d; /* 연한 올리브 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .insta-btn:active {
+    background-color: #556b2f;
+  }
+
+  /* ----------------------------------------- */
+  /* 팝업창(모달) 디자인 */
+  /* ----------------------------------------- */
+  .popup-overlay {
+    display: none; /* 평소에는 숨김 */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .popup-content {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 360px; /* 인스타 게시물이 예쁘게 나오는 너비 */
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+
+  /* 인스타 프레임 영역 */
+  .popup-body {
+    flex: 1;
+    overflow-y: auto; /* 내용이 길면 스크롤 되도록 */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 하단 닫기 버튼 */
+  .close-btn {
+    background-color: #f7f5f0;
+    color: #556b2f;
+    border: none;
+    border-top: 1px solid #ebdccb;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+  }
+</style>
+
+<div class="cafe-card">
+  <h3 class="cafe-name">Melbourne Cafe</h3>
+  <p style="font-size:13px; color:#8e857b; margin-bottom: 20px;">내 사이트 안에서 인스타 감성 확인하기</p>
+  <button class="insta-btn" onclick="openPopup()">📸 인스타그램 구경하기</button>
+</div>
+
+<div class="popup-overlay" id="instaPopup">
+  <div class="popup-content">
+    <div class="popup-body">
+      <iframe id="instaFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+    <button class="close-btn" onclick="closePopup()">닫고 블로그로 돌아가기</button>
+  </div>
+</div>
+
+<script>
+  const popup = document.getElementById('instaPopup');
+  const iframe = document.getElementById('instaFrame');
+
+  function openPopup() {
+    /* 💡 테스트용 실제 인스타그램 게시물 임베드 주소입니다!
+      일반 주소 뒤에 반드시 '/embed'를 붙여야 팝업 안에서 차단되지 않고 작동합니다.
+    */
+    iframe.src = "https://www.instagram.com/p/CtXvC3ZpY5L/embed"; 
+    popup.style.display = 'flex';
+  }
+
+  function closePopup() {
+    popup.style.display = 'none';
+    iframe.src = ""; /* 닫을 때 주소를 비워줘야 깔끔하게 리셋됩니다 */
+  }
+</script>
