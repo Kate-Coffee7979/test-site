@@ -7,7 +7,7 @@
     
     <!-- 아이콘 및 폰트 로드 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -98,7 +98,6 @@
         .icon-btn { cursor: pointer; border: none; background: none; display: flex; align-items: center; transition: 0.3s; position: relative; }
         .btn-icon-svg { width: 18px; height: 18px; fill: none; stroke: var(--olive-deep); stroke-width: 1.5; }
 
-        /* 김 오르는 애니메이션 */
         .steam-wrap { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); display: none; }
         .steam-line { stroke: var(--olive-deep); stroke-width: 1.5; fill: none; opacity: 0; }
         .icon-btn.animating .steam-wrap { display: block; }
@@ -113,14 +112,39 @@
         .shop-weather-box { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-style: italic; font-weight: 500; color: var(--olive-deep); letter-spacing: 0.2px; margin-bottom: 20px; opacity: 0.8; }
         .info-row { display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start; border-bottom: 1px solid rgba(0,0,0,0.03); padding-bottom: 8px; }
         .info-label { font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 700; min-width: 75px; opacity: 0.3; text-transform: uppercase; letter-spacing: 1px; padding-top: 6px; }
-        .info-content { font-size: 0.9rem; opacity: 0.9; line-height: 1.45; text-align: justify; font-family: 'Lora', serif; white-space: pre-wrap; }
+        
+        /* Scene 글씨체 감성적으로 수정 */
+        .info-content { 
+            font-size: 1.15rem; 
+            opacity: 0.9; 
+            line-height: 1.4; 
+            text-align: justify; 
+            font-family: 'Cormorant Garamond', serif; 
+            font-style: italic; 
+            font-weight: 500;
+            white-space: pre-wrap; 
+        }
+
+        /* 지도 컨테이너 스타일 */
+        .map-container {
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #ebdccb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .map-container iframe {
+            width: 100% !important;
+            height: 250px !important;
+            display: block;
+        }
 
         footer { text-align: left; padding: 80px 25px; border-top: 1px solid rgba(0,0,0,0.03); opacity: 0.2; font-size: 0.7rem; letter-spacing: 2px; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <!-- SVG 아이콘 정의 -->
     <svg style="display:none;">
         <symbol id="main-coffee" viewBox="0 0 24 24"><path d="M5 11h11c1.1 0 2 .9 2 2v3c0 2.2-1.8 4-4 4H7c-2.2 0-4-1.8-4-4v-3c0-1.1.9-2 2-2zm13 2h2c1.1 0 2 .9 2 2s-.9 2-2 2h-2v-4z"/><path d="M8 8c0-2 1-2 1-4M12 9c0-3 1-3 1-5M16 8c0-2 1-2 1-4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
         <symbol id="ui-back" viewBox="0 0 40 20"><path d="M10 10 L35 10 M10 10 L18 4 M10 10 L18 16" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -128,7 +152,6 @@
         <symbol id="icon-cup-small" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></symbol>
     </svg>
 
-    <!-- 랜딩 페이지 -->
     <div class="landing" id="landing">
         <h1>Quiet, Until I Find a Scene.</h1>
         <button class="main-trigger" onclick="openArchive()">
@@ -136,7 +159,6 @@
         </button>
     </div>
 
-    <!-- 메인 컨텐츠 컨테이너 -->
     <div class="container" id="main-container">
         <header class="page-header">
             <button class="back-btn" onclick="goBack()"><svg><use href="#ui-back"></use></svg></button>
@@ -164,14 +186,15 @@
     </div>
 
     <script>
-        /* 카페 데이터베이스 (전체 리스트 유지) */
         const database = [
             { 
                 area: 'Melbourne CBD', name: "Patricia Coffee Brewers", addr: "Little Bourke St", ig: "https://www.instagram.com/pcoffeebrewers?igsh=b3BxamRmdDUwM2g=", 
                 weather_ko: "흐린 구름 사이 정갈한 햇살", weather_en: "Clean sun through hazy clouds",
                 roaster: "Patricia Blends", sig: "Filter Coffee", rank: 1, 
                 desc_ko: `조용한 아침\n짧게 머무르는 사람들 사이로 컵이 빠르게 교환되는 작은 에스프레소 바.`,
-                desc_en: `A small expresso bar where cups are quickly exchanged between passing people.`
+                desc_en: `A small expresso bar where cups are quickly exchanged between passing people.`,
+                // Patricia 전용 지도 iframe 추가
+                mapIframe: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6303.895453015043!2d144.9556633748149!3d-37.814693371975345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4b9e54519f%3A0xcc098fa60b839081!2sPatricia%20Coffee%20Brewers!5e0!3m2!1sko!2sau!4v1782904848650!5m2!1sko!2sau" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
             },
             { 
                 area: 'Melbourne CBD', name: "Brother Baba Budan", addr: "Little Bourke St", ig: "brotherbababudan", 
@@ -396,21 +419,23 @@
         const audio = document.getElementById('cafeAudio');
         const playBtn = document.getElementById('playBtn');
 
-        // 음악 재생/일시정지
         function toggleAudio() {
             if (audio.paused) {
                 audio.play().then(() => {
                     playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }).catch(err => {
-                    console.log("Audio play blocked by browser. Click again.");
-                });
+                }).catch(err => console.log("Play blocked"));
             } else {
                 audio.pause();
                 playBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 2px;"></i>';
             }
         }
 
-        // 랜딩 페이지 열기
+        audio.addEventListener('ended', function() {
+            audio.currentTime = 0;
+            audio.play();
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+
         function openArchive() {
             document.getElementById('landing').classList.add('hidden');
             document.getElementById('main-container').classList.add('visible');
@@ -418,7 +443,6 @@
             renderList();
         }
 
-        // 뒤로가기
         function goBack() { 
             document.getElementById('landing').classList.remove('hidden'); 
             document.getElementById('main-container').classList.remove('visible');
@@ -439,7 +463,6 @@
         function setFilter(f) { currentFilter = f; renderNav(); renderList(); }
         function handleSearch(v) { currentSearchQuery = v.toLowerCase(); renderList(); }
 
-        // 지도 연결 (애니메이션 후 실행)
         function triggerMap(btn, url) {
             if(btn.classList.contains('animating')) return;
             btn.classList.add('animating');
@@ -511,6 +534,13 @@
                                 <span class="info-label">Signature</span>
                                 <div class="info-content">${shop.sig}</div>
                             </div>
+
+                            <!-- Patricia 한정 지도 노출 로직 -->
+                            ${shop.mapIframe ? `
+                                <div class="map-container">
+                                    ${shop.mapIframe}
+                                </div>
+                            ` : ''}
                         </div>
                     `}).join('')}
                 </div>
