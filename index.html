@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiet, Until I Find a Scene.</title>
     
-    <!-- 아이콘 및 폰트 로드 -->
+    <!-- 아이콘 및 폰트 로드: Gowun Batang(따뜻한 서체) 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -15,18 +15,18 @@
             --olive-point: #8fa07d; 
             --olive-deep: #5e634e;
             --latte-point: #a68d71;
-            --espresso-deep: #4b3d30;
+            --espresso-warm: #554a3e; /* 더 따뜻하고 부드러운 글씨색 */
             --deep-charcoal: #2c2c2c; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; color: var(--deep-charcoal); }
-        body { background-color: var(--oak-bg); font-family: 'Lora', serif; line-height: 1.5; word-break: keep-all; overflow-x: hidden; }
+        body { background-color: var(--oak-bg); font-family: 'Gowun Batang', serif; line-height: 1.6; word-break: keep-all; overflow-x: hidden; }
         
         /* --- 플레이어 스타일 --- */
         .cafe-player {
             display: flex; align-items: center; justify-content: space-between;
             margin: 25px auto; padding: 12px 20px; width: 100%; max-width: 320px;
-            background-color: #f7f5f0; border: 1px solid #ebdccb; border-radius: 30px;
+            background-color: #f7f5f0; border: 1px solid #ebdccb; border-radius: 40px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
         }
         .player-info { display: flex; align-items: center; gap: 10px; }
@@ -35,10 +35,10 @@
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             color: #ffffff; font-size: 11px;
         }
-        .player-text { font-size: 13px; color: var(--olive-point); font-weight: 500; font-family: sans-serif; }
+        .player-text { font-size: 12px; color: var(--olive-point); font-weight: 500; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; }
         .play-circle-btn {
-            width: 36px; height: 36px; background-color: var(--olive-point);
-            border: none; border-radius: 50%; color: #ffffff; font-size: 14px;
+            width: 34px; height: 34px; background-color: var(--olive-point);
+            border: none; border-radius: 50%; color: #ffffff; font-size: 13px;
             cursor: pointer; display: flex; align-items: center; justify-content: center; outline: none;
         }
 
@@ -54,7 +54,7 @@
         .main-trigger svg { width: 60px; height: 60px; fill: var(--deep-charcoal); opacity: 0.6; transition: 0.5s; }
 
         /* --- 메인 컨테이너 --- */
-        .container { max-width: 580px; margin: 0 auto; padding: 20px 25px; display: none; }
+        .container { max-width: 540px; margin: 0 auto; padding: 20px 25px; display: none; }
         .container.visible { display: block; }
 
         .page-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: sticky; top: 0; background-color: var(--oak-bg); z-index: 60; }
@@ -73,81 +73,73 @@
         .search-wrapper { margin: 20px 0 30px 0; }
         .search-input { 
             width: 100%; border: none; border-bottom: 1px solid rgba(0, 0, 0, 0.08); 
-            background: transparent; padding: 12px 0; font-family: 'Lora', serif; font-size: 0.95rem; outline: none; font-style: italic;
+            background: transparent; padding: 12px 0; font-family: 'Gowun Batang', serif; font-size: 0.95rem; outline: none; font-style: italic;
         }
 
         .area-header { 
-            font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.6rem; 
-            margin: 50px 0 40px 0; color: var(--olive-deep); border-bottom: 2px solid var(--olive-deep); padding-bottom: 8px;
+            font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.5rem; 
+            margin: 50px 0 35px 0; color: var(--olive-deep); border-bottom: 1px solid #ebdccb; padding-bottom: 10px;
         }
 
-        .shop-item { margin-bottom: 90px; opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+        .shop-item { margin-bottom: 85px; opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
         .shop-item.visible { opacity: 1; transform: translateY(0); }
         
         .shop-addr { 
             font-family: 'Montserrat', sans-serif; font-size: 0.55rem; font-weight: 700; color: var(--latte-point); 
-            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; line-height: 1.5;
+            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
         }
         .shop-name { 
-            font-family: 'DM Serif Display', serif; font-size: 1.35rem; line-height: 1.2; font-weight: 400; 
-            color: var(--deep-charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-family: 'DM Serif Display', serif; font-size: 1.3rem; line-height: 1.2; font-weight: 400; 
+            color: var(--deep-charcoal); margin-bottom: 5px;
         }
 
-        .action-group { display: flex; align-items: center; gap: 12px; margin: 8px 0 20px 0; }
-        .btn-text { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--olive-deep); }
+        .action-group { display: flex; align-items: center; gap: 12px; margin: 10px 0 20px 0; }
+        .btn-text { font-family: 'Montserrat', sans-serif; font-size: 0.55rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--olive-deep); opacity: 0.7; }
         .icon-btn { cursor: pointer; border: none; background: none; display: flex; align-items: center; transition: 0.3s; position: relative; }
-        .btn-icon-svg { width: 18px; height: 18px; fill: none; stroke: var(--olive-deep); stroke-width: 1.5; }
+        .btn-icon-svg { width: 17px; height: 17px; fill: none; stroke: var(--olive-deep); stroke-width: 1.5; }
 
+        .shop-weather-box { font-family: 'Gowun Batang', serif; font-size: 0.75rem; font-style: italic; font-weight: 400; color: var(--olive-deep); letter-spacing: 0.2px; margin-bottom: 22px; opacity: 0.7; }
+        
+        .info-row { display: flex; gap: 15px; margin-bottom: 14px; align-items: flex-start; }
+        .info-label { font-family: 'Montserrat', sans-serif; font-size: 0.45rem; font-weight: 700; min-width: 70px; opacity: 0.25; text-transform: uppercase; letter-spacing: 1.2px; padding-top: 6px; }
+        
+        /* Scene 본문: 부드럽고 따뜻한 느낌으로 전면 수정 */
+        .info-content { 
+            font-size: 0.88rem; /* 크기 축소 */
+            color: var(--espresso-warm); /* 부드러운 갈색빛 회색 */
+            line-height: 1.8; /* 행간 대폭 확대 */
+            text-align: justify; 
+            font-family: 'Gowun Batang', serif; 
+            font-weight: 400;
+            white-space: pre-wrap; 
+            letter-spacing: -0.01em;
+        }
+
+        /* 지도 스타일링: 더 부드럽고 감성적인 느낌 */
+        .map-container {
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(166, 141, 113, 0.12); /* 부드러운 그림자 */
+            filter: sepia(0.2) contrast(0.95) brightness(1.02); /* 따뜻한 느낌의 필터 */
+            transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .map-container iframe {
+            width: 100% !important;
+            height: 220px !important;
+            display: block;
+        }
+
+        footer { text-align: left; padding: 100px 25px; border-top: 1px solid rgba(0,0,0,0.03); opacity: 0.2; font-size: 0.7rem; letter-spacing: 2px; font-style: italic; }
+
+        /* 김 오르는 애니메이션 */
         .steam-wrap { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); display: none; }
         .steam-line { stroke: var(--olive-deep); stroke-width: 1.5; fill: none; opacity: 0; }
         .icon-btn.animating .steam-wrap { display: block; }
         .icon-btn.animating .steam-line { animation: steam-rise 0.95s forwards; }
-
-        @keyframes steam-rise {
-            0% { opacity: 0; transform: translateY(0); }
-            40% { opacity: 0.8; }
-            100% { opacity: 0; transform: translateY(-8px); }
-        }
-
-        .shop-weather-box { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-style: italic; font-weight: 500; color: var(--olive-deep); letter-spacing: 0.2px; margin-bottom: 20px; opacity: 0.8; }
-        .info-row { display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start; border-bottom: 1px solid rgba(0,0,0,0.03); padding-bottom: 8px; }
-        .info-label { font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 700; min-width: 75px; opacity: 0.3; text-transform: uppercase; letter-spacing: 1px; padding-top: 6px; }
-        
-        /* Scene 글씨체 수정: 크기를 줄이고 우아한 이탤릭 가라몬드 적용 */
-        .info-content { 
-            font-size: 0.95rem; 
-            opacity: 0.85; 
-            line-height: 1.6; 
-            text-align: justify; 
-            font-family: 'Cormorant Garamond', serif; 
-            font-style: italic; 
-            font-weight: 400;
-            color: var(--espresso-deep);
-            white-space: pre-wrap; 
-            letter-spacing: 0.02em;
-        }
-
-        /* 지도 스타일링: 감성적인 필터와 보더 처리 */
-        .map-container {
-            margin-top: 15px;
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #ebdccb;
-            box-shadow: 0 5px 15px rgba(166, 141, 113, 0.1);
-            filter: grayscale(0.7) sepia(0.3) contrast(0.9); /* 빈티지한 올리브/베이지 톤 필터 */
-            transition: 0.5s;
-        }
-        .map-container:hover {
-            filter: grayscale(0) sepia(0) contrast(1); /* 터치/호버 시 원래 색상 */
-        }
-        .map-container iframe {
-            width: 100% !important;
-            height: 230px !important;
-            display: block;
-        }
-
-        footer { text-align: left; padding: 80px 25px; border-top: 1px solid rgba(0,0,0,0.03); opacity: 0.2; font-size: 0.7rem; letter-spacing: 2px; font-style: italic; }
+        @keyframes steam-rise { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-8px); } }
     </style>
 </head>
 <body>
@@ -193,6 +185,7 @@
     </div>
 
     <script>
+        /* 카페 데이터베이스 (32개 전체 유지) */
         const database = [
             { 
                 area: 'Melbourne CBD', name: "Patricia Coffee Brewers", addr: "Little Bourke St", ig: "https://www.instagram.com/pcoffeebrewers?igsh=b3BxamRmdDUwM2g=", 
@@ -207,7 +200,7 @@
                 weather_ko: "보도블록을 적시는 오후의 빗방울", weather_en: "Afternoon rain on the pavement",
                 roaster: "Seven Seeds", sig: "Batch Brew", rank: 2, 
                 desc_ko: `매달린 시선\n들어서는 순간 천장 위 의자들이 시선을 먼저 붙잡는 카페.`,
-                desc_en: `A cafe where ceiling-hung chairs catch your gaze the moment you walk in .`
+                desc_en: `A cafe where ceiling-hung chairs catch your gaze the moment you walk in.`
             },
             { 
                 area: 'Melbourne CBD', name: "Dukes Coffee Roasters", addr: "Flinders Ln", ig: "dukes_coffee", 
@@ -255,7 +248,7 @@
                 area: 'Melbourne CBD', name: "Project Zero Coffee", addr: "King St / Flinders St", ig: "projectzerocoffee", 
                 weather_ko: "모든 것을 비우고 싶은 이른 아침", weather_en: "Early morning to empty mind",
                 roaster: "Eco Blends", sig: "Flat White", rank: 9, 
-                desc_ko: `제로의 공간\n모든 장식이 사라진 자리에서 커피만 정학하게 남는 미니멀 에스트레소 바.`,
+                desc_ko: `제로의 공간\n모든 장식이 사라진 자리에서 커피만 정확하게 남는 미니멀 에스프레소 바.`,
                 desc_en: `An expresso bar where everything is stripped back, leaving only a precise cup of coffee.`
             },
             { 
@@ -267,15 +260,15 @@
             },
             { 
                 area: 'Melbourne CBD', name: "in.btwn", addr: "Djeembana Walk", ig: "inbtwn.melb", 
-                weather_ko: "계절이 겹친 듯한 흐릿한 오후", weather_en: "A blurred afternoon where seasons overlap",
+                weather_ko: "계절이 겹친 듯한 흐릿한 오후", weather_en: "A blurred afternoon",
                 roaster: "Code Black Roasters", sig: "Einspanner & Matcha Einspanner", rank: 11, 
                 desc_ko: `사이 공간\n두 공간 사이 틈에서 자연스럽게 발견되는 카페.`,
                 desc_en: `A cafe discovered naturally in the space between two places.`
             },
             { 
                 area: 'Melbourne CBD', name: "Shortshop Coffee & Donuts", addr: "Sutherland St", ig: "shortstop.au", 
-                weather_ko: "겨울 오후, 설탕 향이 퍼지는 순간", weather_en: "A winter afternoon, where the scent of sugar drifts",
-                roaster: "Market Lane, Small Batch Roast & Fieldwork Coffee", sig: "Donuts & coffee", rank: 12, 
+                weather_ko: "겨울 오후, 설탕 향이 퍼지는 순간", weather_en: "A winter afternoon",
+                roaster: "Market Lane Specialty", sig: "Donuts & coffee", rank: 12, 
                 desc_ko: `마지막 조각\n커피와 도넛이 하나의 장면으로 완성되는 카페.`,
                 desc_en: `A cafe where coffee and donuts come together as one scene.`
             },
@@ -288,7 +281,7 @@
             },
             { 
                 area: 'Melbourne CBD', name: "OKO Cafe", addr: "A’ Beckett St / CBD", ig: "okocafe", 
-                weather_ko: "정적이 필요한 산란한 마음", weather_en: "When needing absolute silence",
+                weather_ko: "정적이 필요한 산란한 마음", weather_en: "When needing silence",
                 roaster: "Specialty Selection", sig: "Hand Drip Coffee", rank: 14, 
                 desc_ko: `낮은 빛\n어두운 조도 아래에서 커피 향이 더 또렷해지는 카페.`,
                 desc_en: `A cafe where coffee aroma sharpens under low light.`
@@ -323,7 +316,7 @@
             },
             { 
                 area: 'Melbourne CBD', name: "Spyglass Coffee", addr: "Queen St", ig: "spyglasscoffee_melb", 
-                weather_ko: "늦여름 끝자락, 흐려지는 오후", weather_en: "Last summer's end, a fading afternoon.",
+                weather_ko: "늦여름 끝자락, 흐려지는 오후", weather_en: "Last summer's end",
                 roaster: "Spyglass Coffee", sig: "Batch Brew & Flat White", rank: 19, 
                 desc_ko: `더티 글로우\n크림과 커피가 섞이며 도시의 색을 흐르게 만드는 한 잔.`,
                 desc_en: `A single cup where cream and coffee blend, softening the city's edges.`
@@ -344,29 +337,29 @@
             },
             { 
                 area: 'Melbourne CBD', name: "Fabian", addr: "Lonsdale St / Little Collins St / CBD", ig: "fabian_melb", 
-                weather_ko: "클래식 영화의 주인공이 되는 날", weather_en: "Being a classic film protagonist",
+                weather_ko: "클래식 영화의 주인공이 되는 날", weather_en: "Being a film protagonist",
                 roaster: "Traditional Blends", sig: "Flat White", rank: 22, 
-                desc_ko: `단단한 정제\n금속과 콘크리트 사이에서 정확하게 추출되는 에스트레소 바.`,
+                desc_ko: `단단한 정제\n금속과 콘크리트 사이에서 정확하게 추출되는 에스프레소 바.`,
                 desc_en: `An expressor bar where extraction is precise between metal and concretes.`
             },
             { 
-                area: 'North Melbourne', name: "Path Melbourne", addr: "Villiers St / North Melbourne", ig: "path_melbourne", 
-                weather_ko: "안개 낀 고요한 새벽", weather_en: "Quiet morning with low fog",
+                area: 'North Melbourne', name: "Path Melbourne", addr: "Villiers St", ig: "path_melbourne", 
+                weather_ko: "안개 낀 고요한 새벽", weather_en: "Quiet morning with fog",
                 roaster: "In-house Roasts", sig: "Single Origin Filter", rank: 1, 
                 desc_ko: `느린 길\n북멜번른의 조용한 흐름 위에 놓인 커피 한 잔.`,
                 desc_en: `A cup of coffee set along the quiet flow of North Melbourne.`
             },
             { 
-                area: 'North Melbourne / Prahran', name: "Tone Coffee", addr: "Queensberry St, North Melbourne / High St, Prahran", ig: "tonecoffee_melb", 
+                area: 'North Melbourne / Prahran', name: "Tone Coffee", addr: "Queensberry St / High St", ig: "tonecoffee_melb", 
                 weather_ko: "늦가을의 따뜻한 오후", weather_en: "A warm late autumn afternoon",
                 roaster: "Tone Coffee Roasters", sig: "The Tiger Bomb", rank: 2, 
                 desc_ko: `로스터의 온도\n향과 온도로 기억되는 조용한 로스터리.`,
                 desc_en: `A quiet rostery remembered for its aroma and warmth.`
             },
             { 
-                area: 'North Melbourne', name: "Rosso Coffee Experience", addr: "Dryburgh St / North Melbourne", ig: "rossocoffee", 
+                area: 'North Melbourne', name: "Rosso Coffee Experience", addr: "Dryburgh St", ig: "rossocoffee", 
                 weather_ko: "취향을 실험하고 싶은 날", weather_en: "Day to experiment with tastes",
-                roaster: "Governor / Commuter / Bohemian Blends", sig: "Espresso Flight", rank: 3, 
+                roaster: "Bohemian Blends", sig: "Espresso Flight", rank: 3, 
                 desc_ko: `세 가지 결\n서로 다른 에스프레소가 공간의 성격을 나누는 카페.`,
                 desc_en: `A cafe where different espressos define the character of the space.`
             },
@@ -385,29 +378,29 @@
                 desc_en: `An urban cafe where people and coffee move quickly through the space.`
             },
             { 
-                area: 'Collingwood', name: "Aunty Peg's", addr: "Wellington St, Collingwood", ig: "auntypegsbypmc", 
+                area: 'Collingwood', name: "Aunty Peg's", addr: "Wellington St", ig: "auntypegsbypmc", 
                 weather_ko: "초여름의 뜨거운 오후", weather_en: "A hot early summer afternoon",
-                roaster: "Proud Mary Coffee Roasters", sig: "Snap Chill and filter Coffee", rank: 3, 
+                roaster: "Proud Mary Roasters", sig: "Snap Chill Filter", rank: 3, 
                 desc_ko: `로스터의 시선\n로스터 과정을 그대로 드러내는 커피 실험실.`,
                 desc_en: `A coffee lab that openly revelas the roasting process.`
             },
             { 
-                area: 'South Melbourne & South Yarra', name: "ST. ALi Coffee Roasters", addr: "Yarra Pl / South Melbourne", ig: "st_ali", 
+                area: 'South Melbourne & South Yarra', name: "ST. ALi Coffee Roasters", addr: "Yarra Pl", ig: "st_ali", 
                 weather_ko: "자유로운 반항아 같은 아침", weather_en: "Sunny morning like a rebel",
                 roaster: "ST. ALi", sig: "Orthodox White", rank: 1, 
                 desc_ko: `거친 신호\n남멜버른의 에너지가 그대로 드러나는 로스터리.`,
-                desc_en: `A roastery where South Melbourne's energy comes through clearly .`
+                desc_en: `A roastery where South Melbourne's energy comes through clearly.`
             },
             { 
-                area: 'Brunswick', name: "ONA Coffee", addr: "Ovens St / Brunswick", ig: "onacoffee", 
-                weather_ko: "커피의 한계를 시험하고 싶은 날", weather_en: "Day to test coffee's limits",
+                area: 'Brunswick', name: "ONA Coffee", addr: "Ovens St", ig: "onacoffee", 
+                weather_ko: "커피의 한계를 시험하고 싶은 날", weather_en: "Day to test limits",
                 roaster: "ONA Specialty", sig: "Raspberry Candy", rank: 1, 
                 desc_ko: `실험의 중심\n끊임없이 새로운 커피를 시도하는 로스터리 공간.`,
                 desc_en: `A roastery space that constantly explores new coffees.`
             },
             { 
-                area: 'Carlton', name: "Good Measure", addr: "Lygon St / Carlton", ig: "goodmeasure_melbourne", 
-                weather_ko: "낮과 밤의 경계가 모호해지는 시간", weather_en: "Blurred day and night boundaries",
+                area: 'Carlton', name: "Good Measure", addr: "Lygon St", ig: "goodmeasure_melbourne", 
+                weather_ko: "낮과 밤의 경계가 모호해지는 시간", weather_en: "Blurred day and night",
                 roaster: "Rotating Guest", sig: "Mont Blanc Coffee", rank: 1, 
                 desc_ko: `균형의 틀\n모든 것이 정확한 비율로 유지되는 안정된 카페.`,
                 desc_en: `A cafe balanced in perfect proportion.`
@@ -436,7 +429,7 @@
             }
         }
 
-        audio.addEventListener('ended', function() {
+        audio.addEventListener('ended', () => {
             audio.currentTime = 0;
             audio.play();
             playBtn.innerHTML = '<i class="fas fa-pause"></i>';
