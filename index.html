@@ -7,7 +7,7 @@
     
     <!-- 아이콘 및 폰트 로드 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -113,30 +113,37 @@
         .info-row { display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start; border-bottom: 1px solid rgba(0,0,0,0.03); padding-bottom: 8px; }
         .info-label { font-family: 'Montserrat', sans-serif; font-size: 0.5rem; font-weight: 700; min-width: 75px; opacity: 0.3; text-transform: uppercase; letter-spacing: 1px; padding-top: 6px; }
         
-        /* Scene 글씨체 감성적으로 수정 */
+        /* Scene 글씨체 수정: 크기를 줄이고 우아한 이탤릭 가라몬드 적용 */
         .info-content { 
-            font-size: 1.15rem; 
-            opacity: 0.9; 
-            line-height: 1.4; 
+            font-size: 0.95rem; 
+            opacity: 0.85; 
+            line-height: 1.6; 
             text-align: justify; 
             font-family: 'Cormorant Garamond', serif; 
             font-style: italic; 
-            font-weight: 500;
+            font-weight: 400;
+            color: var(--espresso-deep);
             white-space: pre-wrap; 
+            letter-spacing: 0.02em;
         }
 
-        /* 지도 컨테이너 스타일 */
+        /* 지도 스타일링: 감성적인 필터와 보더 처리 */
         .map-container {
             margin-top: 15px;
             width: 100%;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid #ebdccb;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(166, 141, 113, 0.1);
+            filter: grayscale(0.7) sepia(0.3) contrast(0.9); /* 빈티지한 올리브/베이지 톤 필터 */
+            transition: 0.5s;
+        }
+        .map-container:hover {
+            filter: grayscale(0) sepia(0) contrast(1); /* 터치/호버 시 원래 색상 */
         }
         .map-container iframe {
             width: 100% !important;
-            height: 250px !important;
+            height: 230px !important;
             display: block;
         }
 
@@ -193,7 +200,6 @@
                 roaster: "Patricia Blends", sig: "Filter Coffee", rank: 1, 
                 desc_ko: `조용한 아침\n짧게 머무르는 사람들 사이로 컵이 빠르게 교환되는 작은 에스프레소 바.`,
                 desc_en: `A small expresso bar where cups are quickly exchanged between passing people.`,
-                // Patricia 전용 지도 iframe 추가
                 mapIframe: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6303.895453015043!2d144.9556633748149!3d-37.814693371975345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4b9e54519f%3A0xcc098fa60b839081!2sPatricia%20Coffee%20Brewers!5e0!3m2!1sko!2sau!4v1782904848650!5m2!1sko!2sau" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
             },
             { 
@@ -535,7 +541,6 @@
                                 <div class="info-content">${shop.sig}</div>
                             </div>
 
-                            <!-- Patricia 한정 지도 노출 로직 -->
                             ${shop.mapIframe ? `
                                 <div class="map-container">
                                     ${shop.mapIframe}
